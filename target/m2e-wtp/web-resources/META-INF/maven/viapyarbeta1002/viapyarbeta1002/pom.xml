@@ -3,7 +3,6 @@
   <groupId>viapyarbeta1002</groupId>
   <artifactId>viapyarbeta1002</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
   <name>viapyar</name>
   <description>gecommerce</description>
   <dependencies>
@@ -13,6 +12,15 @@
     <artifactId>lucene-core</artifactId>
     <version>6.4.0</version>
    </dependency>
+   
+   <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin -->
+<dependency>
+    <groupId>org.apache.tomcat.maven</groupId>
+    <artifactId>tomcat7-maven-plugin</artifactId>
+    <version>2.2</version>
+</dependency>
+   
+    
    
    <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 <!-- https://mvnrepository.com/artifact/org.json/json -->
@@ -83,6 +91,17 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      
+      
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <configuration>
+                <mainClass>com.example.Main</mainClass>
+            </configuration>
+        </plugin>
+    
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.6</version>
@@ -91,6 +110,29 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
+      
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.3</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals><goal>copy</goal></goals>
+                    <configuration>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>com.github.jsimone</groupId>
+                                <artifactId>webapp-runner</artifactId>
+                                <version>8.5.11.3</version>
+                                <destFileName>webapp-runner.jar</destFileName>
+                            </artifactItem>
+                        </artifactItems>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
+  <packaging>war</packaging>
 </project>
